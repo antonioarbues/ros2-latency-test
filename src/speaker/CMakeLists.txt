@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(speakerlistener)
+project(speaker)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -13,23 +13,17 @@ find_package(ament_cmake REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-# sensor_msgs
 find_package(sensor_msgs REQUIRED)
-# opencv
 find_package(OpenCV REQUIRED)
 
-add_executable(speak src/speak.cpp)
-add_executable(listen src/listen.cpp)
+add_executable(speaker src/speak.cpp)
 
-ament_target_dependencies(speak rclcpp std_msgs sensor_msgs)
-ament_target_dependencies(listen rclcpp std_msgs sensor_msgs)
+ament_target_dependencies(speaker rclcpp std_msgs sensor_msgs)
 
-target_link_libraries(speak ${OpenCV_LIBS})
+target_link_libraries(speaker ${OpenCV_LIBS})
 
-# install
 install(TARGETS
-  speak
-  listen
+  speaker
   DESTINATION lib/${PROJECT_NAME}
 )
 
