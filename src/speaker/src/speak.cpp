@@ -15,7 +15,15 @@ public:
         publisher_ = this->create_publisher<sensor_msgs::msg::Image>("image_raw", rclcpp::SensorDataQoS());
         timer_ = this->create_wall_timer(std::chrono::milliseconds(50), std::bind(&Speaker::publish_image, this));
 
-        cv::Mat image(480, 640, CV_8UC3, cv::Scalar(0, 0, 255));
+        // cv::Mat image(240, 320, CV_8UC3, cv::Scalar(0, 0, 255));  // ~40ms
+        // cv::Mat image(480, 640, CV_8UC3, cv::Scalar(0, 0, 255));  // ~120ms
+        // cv::Mat image(1080, 1920, CV_8UC3, cv::Scalar(0, 0, 255));  // almost every image dropped
+        // cv::Mat image(720, 1280, CV_8UC3, cv::Scalar(0, 0, 255));  // almost every image dropped
+
+        // black and white image
+        // cv::Mat image(480, 640, CV_8UC1, cv::Scalar(255));
+
+        cv::Mat image(240, 320, CV_8UC3, cv::Scalar(0, 0, 255));
         msg.height = image.rows;
         msg.width = image.cols;
         msg.encoding = "bgr8";
